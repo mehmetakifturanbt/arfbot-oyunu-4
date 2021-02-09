@@ -4,6 +4,7 @@ namespace SpriteKind {
 sprites.onOverlap(SpriteKind.Pota, SpriteKind.Projectile, function (sprite, otherSprite) {
     info.changeScoreBy(1)
     ball.destroy()
+    topunvarolmadurumu = false
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     ball = sprites.createProjectileFromSprite(img`
@@ -24,8 +25,10 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `, Arfbot, 0, -100)
+    topunvarolmadurumu = true
 })
 let ball: Sprite = null
+let topunvarolmadurumu = false
 let Arfbot: Sprite = null
 scene.setBackgroundImage(img`
     4444444444444444444441444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444414444444444444444444444
@@ -197,3 +200,10 @@ info.setScore(0)
 Pota.setVelocity(50, 0)
 Pota.setFlag(SpriteFlag.BounceOnWall, true)
 info.setLife(3)
+topunvarolmadurumu = false
+game.onUpdateInterval(500, function () {
+    if (topunvarolmadurumu == true && ball.y < 1) {
+        info.changeLifeBy(-1)
+        topunvarolmadurumu = false
+    }
+})
