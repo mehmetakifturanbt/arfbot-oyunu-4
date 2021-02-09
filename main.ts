@@ -6,6 +6,10 @@ sprites.onOverlap(SpriteKind.Pota, SpriteKind.Projectile, function (sprite, othe
     ball.destroy()
     topunvarolmadurumu = false
 })
+function yönergeler (metin: string) {
+    game.showLongText(metin, DialogLayout.Bottom)
+    music.baDing.play()
+}
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     ball = sprites.createProjectileFromSprite(img`
         . . . . . . . . . . . . . . . . 
@@ -27,6 +31,31 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         `, Arfbot, 0, -100)
     topunvarolmadurumu = true
 })
+function yönergeiçerik () {
+    game.setDialogFrame(img`
+        1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+        1 b c c c c c c c c c c c c c c c c b 1 
+        1 c b a a a a a a a a a a a a a a b c 1 
+        1 c a 1 1 1 1 1 1 1 1 1 1 1 1 1 1 a c 1 
+        1 c a 1 1 1 1 1 1 1 1 1 1 1 1 1 1 a c 1 
+        1 c a 1 1 1 1 1 1 1 1 1 1 1 1 1 1 a c 1 
+        1 c a 1 1 1 1 1 1 1 1 1 1 1 1 1 1 a c 1 
+        1 c a 1 1 1 1 1 1 1 1 1 1 1 1 1 1 a c 1 
+        1 c a 1 1 1 1 1 1 1 1 1 1 1 1 1 1 a c 1 
+        1 c a 1 1 1 1 1 1 1 1 1 1 1 1 1 1 a c 1 
+        1 c a 1 1 1 1 1 1 1 1 1 1 1 1 1 1 a c 1 
+        1 c a 1 1 1 1 1 1 1 1 1 1 1 1 1 1 a c 1 
+        1 c b a a a a a a a a a a a a a a b c 1 
+        1 b c c c c c c c c c c c c c c c c b 1 
+        1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+        `)
+    yönergeler("Arfbot Basketbol oynuyor (Örnek Oyun Kodlaması 4)")
+    yönergeler("Oyunun Amacı: Arfbot potaya basket atmaya çalışıyor.")
+    yönergeler("Potaya basket attığında 1 puan kazanır.")
+    yönergeler("Eğer top potaya girmezse 1 can kaybeder")
+    yönergeler("Toplamda 3 can kaybettiğinde oyun biter")
+    yönergeler("İyi eğlenceler! :)")
+}
 let ball: Sprite = null
 let topunvarolmadurumu = false
 let Arfbot: Sprite = null
@@ -201,6 +230,7 @@ Pota.setVelocity(50, 0)
 Pota.setFlag(SpriteFlag.BounceOnWall, true)
 info.setLife(3)
 topunvarolmadurumu = false
+yönergeiçerik()
 game.onUpdateInterval(500, function () {
     if (topunvarolmadurumu == true && ball.y < 1) {
         info.changeLifeBy(-1)
